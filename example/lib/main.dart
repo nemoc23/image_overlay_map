@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:bubble_box/bubble_box.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_overlay_map/image_overlay_map.dart';
-import 'package:bubble_widget/bubble_widget.dart';
 
 void main() {
   runApp(MyApp());
@@ -123,18 +123,23 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     if (scale > 3) {
-      return BubbleWidget(
-          direction: ArrowDirection.bottom,
-          color: Colors.orange,
-          strokeColor: Colors.white,
-          strokeWidth: 1.0,
-          borderRadius: 3.0,
-          style: BubbleStyle.stroke,
-          padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-          child: Text(facility.name,
-              maxLines: 1,
-              textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.white, fontSize: 10.0)));
+      return BubbleBox(
+        shape: BubbleShapeBorder(
+          border: BubbleBoxBorder(
+            color: Colors.white,
+            width: 1,
+          ),
+          position: const BubblePosition.center(0),
+          direction: BubbleDirection.bottom,
+        ),
+        backgroundColor: Colors.orange,
+        child: Text(
+          facility.name,
+          maxLines: 1,
+          textAlign: TextAlign.left,
+          style: TextStyle(color: Colors.white, fontSize: 10.0),
+        ),
+      );
     }
 
     return Icon(Icons.location_on, color: Colors.redAccent);

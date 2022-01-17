@@ -3,7 +3,7 @@ library measured_size;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-typedef void OnWidgetSizeChange(Size size);
+typedef void OnWidgetSizeChange(Size? size);
 
 /// [MeasuredSize] Calculated the size of it's child in runtime.
 /// Simply wrap your widget with [MeasuredSize] and listen to size changes with [onChange].
@@ -16,9 +16,9 @@ class MeasuredSize extends StatefulWidget {
   final OnWidgetSizeChange onChange;
 
   const MeasuredSize({
-    Key key,
-    @required this.onChange,
-    @required this.child,
+    Key? key,
+    required this.onChange,
+    required this.child,
   }) : super(key: key);
 
   @override
@@ -28,13 +28,13 @@ class MeasuredSize extends StatefulWidget {
 class _MeasuredSizeState extends State<MeasuredSize> {
   @override
   void initState() {
-    SchedulerBinding.instance.addPostFrameCallback(postFrameCallback);
+    SchedulerBinding.instance!.addPostFrameCallback(postFrameCallback);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    SchedulerBinding.instance.addPostFrameCallback(postFrameCallback);
+    SchedulerBinding.instance!.addPostFrameCallback(postFrameCallback);
     return Container(
       key: widgetKey,
       child: widget.child,
@@ -45,8 +45,8 @@ class _MeasuredSizeState extends State<MeasuredSize> {
   var oldSize;
 
   void postFrameCallback(_) {
-    var context = widgetKey.currentContext;
-    Size newSize = context.size;
+    var context = widgetKey.currentContext!;
+    Size? newSize = context.size;
     if (newSize == Size.zero) return;
     if (oldSize == newSize) return;
     oldSize = newSize;
