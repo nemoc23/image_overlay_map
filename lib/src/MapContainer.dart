@@ -64,7 +64,7 @@ class _MapContainerState extends State<MapContainer> {
   }
 
   void _handleOnScaleStart(ScaleStartDetails details) {
-    widget.onTab!();
+    //widget.onTab!();
     setState(() {
       _previousScale = _scale;
       _normalizedOffset = (details.localFocalPoint - _offset) / _scale;
