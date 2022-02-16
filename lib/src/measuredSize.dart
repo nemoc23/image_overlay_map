@@ -45,11 +45,13 @@ class _MeasuredSizeState extends State<MeasuredSize> {
   var oldSize;
 
   void postFrameCallback(_) {
-    var context = widgetKey.currentContext!;
-    Size? newSize = context.size;
-    if (newSize == Size.zero) return;
-    if (oldSize == newSize) return;
-    oldSize = newSize;
-    widget.onChange(newSize);
+    if (widgetKey.currentContext != null) {
+      var context = widgetKey.currentContext!;
+      Size? newSize = context.size;
+      if (newSize == Size.zero) return;
+      if (oldSize == newSize) return;
+      oldSize = newSize;
+      widget.onChange(newSize);
+    }
   }
 }
